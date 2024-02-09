@@ -2,12 +2,13 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { AppProviders } from '@/components';
+import { APP_DESCRIPTION, APP_NAME } from '@/shared/labels';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'SCALIS Coding Exercise',
-	description: 'SCALIS Coding Exercise',
+	title: APP_NAME,
+	description: APP_DESCRIPTION,
 };
 
 export default function RootLayout({

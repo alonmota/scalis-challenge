@@ -1,59 +1,39 @@
 'use client';
-
-import React, { useState } from 'react';
-import { Button } from '@/components';
+import React, { useState, useEffect } from 'react';
 
 const AccountList = () => {
-	const [checkingBalance, setCheckingBalance] = useState(0);
-	const [savingsBalance, setSavingsBalance] = useState(0);
-	const [transferAmount, setTransferAmount] = useState('');
+	const [users, setUsers] = useState([]);
 	const [message, setMessage] = useState('');
 
-	const handleTransfer = (from, to) => {
-		if (from === 'checking' && checkingBalance < transferAmount) {
-			setMessage('Insufficient funds in checking account');
-			return;
-		}
+	useEffect(() => {
+		const fetchUsers = async () => {
+			try {
+				const response = await fetch('/api/users');
+				if (!response.ok) {
+					throw new Error('Failed to fetch users');
+				}
+				const data = await response.json();
+				setUsers(data);
+			} catch (error) {
+				setMessage(error.message);
+			}
+		};
 
-		if (from === 'savings' && savingsBalance < transferAmount) {
-			setMessage('Insufficient funds in savings account');
-			return;
-		}
-
-		const amount = parseFloat(transferAmount);
-		if (isNaN(amount) || amount <= 0) {
-			setMessage('Invalid amount');
-			return;
-		}
-
-		if (from === 'checking') {
-			setCheckingBalance(checkingBalance - amount);
-			setSavingsBalance(savingsBalance + amount);
-		} else {
-			setSavingsBalance(savingsBalance - amount);
-			setCheckingBalance(checkingBalance + amount);
-		}
-
-		setMessage('Transfer successful');
-		setTransferAmount('');
-	};
+		fetchUsers();
+	}, []);
 
 	return (
 		<div>
-			<h2>Checking Account: ${checkingBalance}</h2>
-			<h2>Savings Account: ${savingsBalance}</h2>
-			<input
-				type="number"
-				placeholder="Enter amount"
-				value={transferAmount}
-				onChange={(e) => setTransferAmount(e.target.value)}
-			/>
-			<Button onClick={() => handleTransfer('checking', 'savings')}>
-				Transfer to Savings
-			</Button>
-			<Button onClick={() => handleTransfer('savings', 'checking')}>
-				Transfer to Checking
-			</Button>
+			<h2>User List</h2>
+			{users.length > 0 ? (
+				<ul>
+					{users.map((user) => (
+						<li key={user.id}>{user.name}</li>
+					))}
+				</ul>
+			) : (
+				<p>No users found</p>
+			)}
 			{message && <p>{message}</p>}
 		</div>
 	);
