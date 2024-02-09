@@ -1,3 +1,12 @@
 {
-  "extends": "next/core-web-vitals"
+	"extends": "next/core-web-vitals",
+	"plugins": ["@typescript-eslint/eslint-plugin"],
+	"rules": {
+		"indent": [
+			"error",
+			"tab",
+			{ "SwitchCase": 1, "ignoredNodes": ["PropertyDefinition"] }
+		],
+		"quotes": ["error", "single", { "allowTemplateLiterals": true }]
+	}
 }
