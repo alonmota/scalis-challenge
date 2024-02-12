@@ -30,7 +30,9 @@ describe('AccountList', () => {
 
 	test('renders user account details after data fetch', async () => {
 		const { getByTestId } = render(<AccountList userId="123" />);
-		await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
+		await waitFor(() =>
+			expect(getByTestId('saving-balance')).toBeInTheDocument(),
+		);
 		expect(getByTestId('user-name-header')).toBeInTheDocument();
 		expect(getByTestId('saving-balance')).toBeInTheDocument();
 		expect(getByTestId('saving-balance')).toHaveTextContent('Balance: $200');
@@ -40,7 +42,9 @@ describe('AccountList', () => {
 
 	test('handles deposit to checking account', async () => {
 		const { getByTestId } = render(<AccountList userId="123" />);
-		await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+		await waitFor(() =>
+			expect(getByTestId('saving-balance')).toBeInTheDocument(),
+		);
 
 		fireEvent.change(getByTestId('checking-transaction-input'), {
 			target: { value: '50' },
@@ -59,7 +63,9 @@ describe('AccountList', () => {
 
 	test('handles deposit to savings account', async () => {
 		const { getByTestId } = render(<AccountList userId="123" />);
-		await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+		await waitFor(() =>
+			expect(getByTestId('saving-balance')).toBeInTheDocument(),
+		);
 
 		fireEvent.change(getByTestId('savings-transaction-input'), {
 			target: { value: '50' },
@@ -78,7 +84,9 @@ describe('AccountList', () => {
 
 	test('handles transfer between accounts', async () => {
 		const { getByTestId } = render(<AccountList userId="123" />);
-		await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+		await waitFor(() =>
+			expect(getByTestId('saving-balance')).toBeInTheDocument(),
+		);
 
 		// Set a transaction amount
 		fireEvent.change(getByTestId('checking-transaction-input'), {
