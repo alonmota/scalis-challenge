@@ -1,20 +1,4 @@
-'use client';
-import Head from 'next/head';
-import { AccountList } from '@/components';
-
-export default function Home() {
-	return (
-		<div>
-			<Head>
-				<title>My Banking App</title>
-				<meta name="description" content="My Banking App" />
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
-
-			<main>
-				<h1>Welcome to My Banking App</h1>
-				<AccountList />
-			</main>
-		</div>
-	);
+import { redirect } from 'next/navigation';
+export default async function Home() {
+	redirect('/users/1');
 }

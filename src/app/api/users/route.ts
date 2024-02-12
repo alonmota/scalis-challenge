@@ -2,11 +2,6 @@ import { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
 import { getUsers } from './user.service';
 
-interface User {
-	id: number;
-	name: string;
-}
-
 export async function GET(req: NextApiRequest) {
 	try {
 		const users = await getUsers();
