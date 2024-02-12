@@ -64,7 +64,7 @@ const AccountList = ({ userId }) => {
 
 	return (
 		<div className="container mx-auto p-4">
-			<h1 className="mb-4 text-2xl font-bold">
+			<h1 data-testid="user-name-header" className="mb-4 text-2xl font-bold">
 				{userData ? `${userData.name}'s Account Overview` : 'Loading...'}
 			</h1>
 			{errorMessage && <p className="mb-4 text-red-500">{errorMessage}</p>}
@@ -72,7 +72,9 @@ const AccountList = ({ userId }) => {
 				<div className="grid grid-cols-2 gap-4">
 					<div className="rounded-lg bg-gray-100 p-4 text-gray-700">
 						<h2 className="mb-2 text-lg font-semibold">Checking Account</h2>
-						<p>Balance: ${userData.checkingBalance}</p>
+						<p data-testid="checking-balance">
+							Balance: ${userData.checkingBalance}
+						</p>
 						<div className="mt-4">
 							<input
 								type="text"
@@ -80,8 +82,10 @@ const AccountList = ({ userId }) => {
 								onChange={(e) => setCheckingTransaction(e.target.value)}
 								className="w-full rounded-md border border-gray-300 px-3 py-2"
 								placeholder="Enter transaction amount"
+								data-testid="checking-transaction-input"
 							/>
 							<button
+								data-testid="deposit-checking-button"
 								onClick={() =>
 									handleDeposit('checking', parseFloat(checkingTransaction))
 								}
@@ -90,6 +94,7 @@ const AccountList = ({ userId }) => {
 								Add Funds
 							</button>
 							<button
+								data-testid="transfer-to-savings-button"
 								onClick={() =>
 									handleTransfer('savings', parseFloat(checkingTransaction))
 								}
@@ -101,7 +106,9 @@ const AccountList = ({ userId }) => {
 					</div>
 					<div className="rounded-lg bg-gray-100 p-4 text-gray-700">
 						<h2 className="mb-2 text-lg font-semibold">Savings Account</h2>
-						<p>Balance: ${userData.savingsBalance}</p>
+						<p data-testid="saving-balance">
+							Balance: ${userData.savingsBalance}
+						</p>
 						<div className="mt-4">
 							<input
 								type="text"
@@ -109,8 +116,10 @@ const AccountList = ({ userId }) => {
 								onChange={(e) => setSavingsTransaction(e.target.value)}
 								className="w-full rounded-md border border-gray-300 px-3 py-2"
 								placeholder="Enter transaction amount"
+								data-testid="savings-transaction-input"
 							/>
 							<button
+								data-testid="deposit-savings-button"
 								onClick={() =>
 									handleDeposit('savings', parseFloat(savingsTransaction))
 								}
@@ -119,6 +128,7 @@ const AccountList = ({ userId }) => {
 								Add Funds
 							</button>
 							<button
+								data-testid="transfer-to-checking-button"
 								onClick={() =>
 									handleTransfer('checking', parseFloat(savingsTransaction))
 								}
